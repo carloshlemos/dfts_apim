@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-version: '2.4'
+version: '3.6'
 services:
   is-as-km:
     build: ./dockerfiles/is-as-km
@@ -21,13 +21,12 @@ services:
       interval: 10s
       start_period: 180s
       retries: 20
-    depends_on:
-      mysql:
-        condition: service_healthy
     volumes:
       - ./conf/is-as-km:/home/wso2carbon/wso2-config-volume
     ports:
       - "9444:9443"
+    networks:
+      - dfts
   api-manager:
     build: ./dockerfiles/apim
     healthcheck:
@@ -37,10 +36,14 @@ services:
       retries: 20
     depends_on:
       is-as-km:
-        condition: service_healthy
+        condition: service_healthy  
     volumes:
       - ./conf/apim:/home/wso2carbon/wso2-config-volume
     ports:
       - "9443:9443"
       - "8280:8280"
       - "8243:8243"
+    networks:
+      - dfts
+networks:
+  dfts: {}

@@ -17,11 +17,10 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to WSO2 API Manager Docker image with latest WSO2 Updates
-FROM docker.wso2.com/wso2am:4.0.0.0
+FROM docker.wso2.com/wso2am:4.0.0.81-alpine
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
 
-# build arguments for external artifacts
-ARG POSTGRES_CONNECTOR_VERSION=9.1-901.jdbc4
+USER root
 
-# add PostgreSQL JDBC connector to server home as a third party library
-ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/postgresql/postgresql/${POSTGRES_CONNECTOR_VERSION}/postgresql-${POSTGRES_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
+# copy extensions to the identity server home
+COPY lib ${WSO2_SERVER_HOME}/repository/components/lib/

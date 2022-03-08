@@ -17,14 +17,14 @@ base_dn = "dc=wso2,dc=org"      #refers the base dn on which the user and group 
 
 [database.identity_db]
 type = "postgre"
-url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=wso2identity_db"
+url = "jdbc:postgresql://postgres:5432/postgres?currentSchema=wso2identity_db"
 username = "postgres"
 password = "admin@123"
 driver = "org.postgresql.Driver"
 
 [database.shared_db]
 type = "postgre"
-url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=wso2shared_db"
+url = "jdbc:postgresql://postgres:5432/postgres?currentSchema=wso2shared_db"
 username = "postgres"
 password = "admin@123"
 driver = "org.postgresql.Driver"
