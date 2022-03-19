@@ -12,8 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-version: '3.6'
+version: '2.4'
 services:
+  postgres:
+    container_name: postgres
+    image: postgres:10.14-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin@123
+    ports:
+      - '5432:5432'
+    volumes: 
+      - ./conf/postgres/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+      - ./conf/postgres/scripts/identity.sql:/docker-entrypoint-initdb.d/2-identity.sql
+      - ./conf/postgres/scripts/uma.sql:/docker-entrypoint-initdb.d/3-uma.sql
+      - ./conf/postgres/scripts/consent.sql:/docker-entrypoint-initdb.d/4-consent.sql
+      - ./conf/postgres/scripts/apimgt.sql:/docker-entrypoint-initdb.d/5-apimgt.sql
+      - ./conf/postgres/scripts/shared.sql:/docker-entrypoint-initdb.d/6-shared.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5  
   is-as-km:
     build: ./dockerfiles/is-as-km
     healthcheck:
@@ -21,12 +42,13 @@ services:
       interval: 10s
       start_period: 180s
       retries: 20
+    depends_on:
+      postgres:
+        condition: service_healthy    
     volumes:
       - ./conf/is-as-km:/home/wso2carbon/wso2-config-volume
     ports:
       - "9444:9443"
-    networks:
-      - dfts
   api-manager:
     build: ./dockerfiles/apim
     healthcheck:
@@ -35,15 +57,13 @@ services:
       start_period: 180s
       retries: 20
     depends_on:
+      postgres:
+        condition: service_healthy    
       is-as-km:
-        condition: service_healthy  
+        condition: service_healthy
     volumes:
       - ./conf/apim:/home/wso2carbon/wso2-config-volume
     ports:
       - "9443:9443"
       - "8280:8280"
       - "8243:8243"
-    networks:
-      - dfts
-networks:
-  dfts: {}

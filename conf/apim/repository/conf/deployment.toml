@@ -1,6 +1,8 @@
 [server]
 hostname = "localhost"
+node_ip = "127.0.0.1"
 #offset=0
+mode = "single" #single or ha
 base_path = "${carbon.protocol}://${carbon.host}:${carbon.management.port}"
 #discard_empty_caches = false
 server_role = "default"
@@ -49,7 +51,7 @@ key_password =  "wso2carbon"
 #key_password =  "wso2carbon"
 
 [[apim.gateway.environment]]
-name = "Default"
+name = "Production and Sandbox"
 type = "hybrid"
 display_in_api_console = true
 description = "This is a hybrid gateway that handles both production and sandbox token traffic."
@@ -61,11 +63,6 @@ ws_endpoint = "ws://localhost:9099"
 wss_endpoint = "wss://localhost:8099"
 http_endpoint = "http://localhost:${http.nio.port}"
 https_endpoint = "https://localhost:${https.nio.port}"
-websub_event_receiver_http_endpoint = "http://localhost:9021"
-websub_event_receiver_https_endpoint = "https://localhost:8021"
-
-[apim.sync_runtime_artifacts.gateway]
-gateway_labels =["Default"]
 
 #[apim.cache.gateway_token]
 #enable = true
@@ -95,10 +92,6 @@ gateway_labels =["Default"]
 #[apim.cache.tags]
 #expiry_time = "2m"
 
-#[apim.analytics]
-#enable = true
-#config_endpoint = "https://analytics-event-auth.choreo.dev/auth/v1"
-#auth_token = "<on-prem-key>"
 
 [apim.key_manager]
 service_url = "https://is-as-km:${mgt.transport.https.port}/services/"
@@ -128,9 +121,9 @@ type = "WSO2-IS"
 #enable_user_claims = true
 #claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.ExtendedDefaultClaimsRetriever"
 
-[apim.oauth_config]
-enable_outbound_auth_header = true
-auth_header = "Authorization"
+#[apim.oauth_config]
+#enable_outbound_auth_header = false
+#auth_header = "Authorization"
 #revoke_endpoint = "https://localhost:${https.nio.port}/revoke"
 #enable_token_encryption = false
 #enable_token_hashing = false
@@ -147,13 +140,11 @@ auth_header = "Authorization"
 #enable_ratings = true
 #enable_forum = true
 #enable_anonymous_mode=true
-#enable_cross_tenant_subscriptions = true
-#default_reserved_username = "apim_reserved_user"
 
 [apim.cors]
 allow_origins = "*"
 allow_methods = ["GET","PUT","POST","DELETE","PATCH","OPTIONS"]
-allow_headers = ["authorization","Access-Control-Allow-Origin","Content-Type","SOAPAction","apikey", "Internal-Key"]
+allow_headers = ["authorization","Access-Control-Allow-Origin","Content-Type","SOAPAction","apikey", "testKey"]
 allow_credentials = false
 
 #[apim.throttling]
@@ -251,7 +242,7 @@ order = 1
 notification_endpoint = "https://localhost:${mgt.transport.https.port}/internal/data/v1/notify"
 username = "${admin.username}"
 password = "${admin.password}"
-'header.X-WSO2-KEY-MANAGER' = "WSO2IS"
+'header.X-WSO2-KEY-MANAGER' = "default"
 
 [config_data]
 path = "/_system/apim/config"

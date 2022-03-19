@@ -17,11 +17,10 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to WSO2 API Manager Docker image with latest WSO2 Updates
-FROM docker.wso2.com/wso2is:5.11.0.122-alpine
+FROM docker.wso2.com/wso2is:5.10.0
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
 
 USER root
-
 # copy extensions to the identity server home
 COPY dropins ${WSO2_SERVER_HOME}/repository/components/dropins/
 COPY lib ${WSO2_SERVER_HOME}/repository/components/lib/
