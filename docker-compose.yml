@@ -21,6 +21,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin@123
+      - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - '5432:5432'
     volumes: 

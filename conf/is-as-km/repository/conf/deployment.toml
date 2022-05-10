@@ -93,3 +93,10 @@ custom_webapps = ["/keymanager-operations/"]
 
 [config_data]
 path = "/_system/is_as_km/config"
+
+[[event_listener]]
+id = "mutual_tls_authenticator"
+type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+name = "org.wso2.carbon.identity.oauth2.token.handler.clientauth.mutualtls.MutualTLSClientAuthenticator"
+order = "158"
+enable = false
