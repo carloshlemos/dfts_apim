@@ -39,9 +39,10 @@ services:
       timeout: 5s
       retries: 5  
   is-as-km:
+    container_name: is-as-km
     build: ./dockerfiles/is-as-km
     healthcheck:
-      test: ["CMD", "nc", "-z","localhost", "9443"]
+      test: ["CMD", "nc", "-z","localhost", "9444"]
       interval: 10s
       start_period: 180s
       retries: 20
@@ -55,6 +56,7 @@ services:
     networks:
       - dfts  
   api-manager:
+    container_name: api-manager
     build: ./dockerfiles/apim
     healthcheck:
       test: ["CMD", "nc", "-z","localhost", "9443"]
