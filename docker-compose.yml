@@ -24,6 +24,8 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - '5432:5432'
+    networks:
+      - dfts  
     volumes: 
       - ./conf/postgres/init.sql:/docker-entrypoint-initdb.d/1-init.sql
       - ./conf/postgres/scripts/identity.sql:/docker-entrypoint-initdb.d/2-identity.sql
@@ -50,6 +52,8 @@ services:
       - ./conf/is-as-km:/home/wso2carbon/wso2-config-volume
     ports:
       - "9444:9444"
+    networks:
+      - dfts  
   api-manager:
     build: ./dockerfiles/apim
     healthcheck:
@@ -68,3 +72,8 @@ services:
       - "9443:9443"
       - "8280:8280"
       - "8243:8243"
+    networks:
+      - dfts  
+networks:
+  dfts:
+    external: true
