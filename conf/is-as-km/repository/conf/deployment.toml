@@ -88,6 +88,21 @@ http_method = "DELETE"
 permissions = "/permission/admin/manage/identity/applicationmgt/delete"
 scopes = "internal_application_mgt_delete"
 
+[[resource.access_control]]
+context="(.*)/identity/metadata/(.*)"
+secure="false"
+http_method="all"
+
+[[resource.access_control]]
+context="(.*)/identity/entitlement/(.*)"
+secure="false"
+http_method="all"
+
+[[resource.access_control]]
+context="(.*)/.well-known(.*)"
+secure="false"
+http_method="all"
+
 [tenant_context.rewrite]
 custom_webapps = ["/keymanager-operations/"]
 
