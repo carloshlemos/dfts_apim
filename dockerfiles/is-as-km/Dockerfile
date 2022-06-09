@@ -18,11 +18,12 @@
 
 # set base Docker image to WSO2 API Manager Docker image with latest WSO2 Updates
 FROM carloshlemos/dfts_apim_is-as-km:1.0.1
+
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
 
 USER root
 # copy extensions to the identity server home
-COPY dropins ${WSO2_SERVER_HOME}/repository/components/dropins/
-COPY lib ${WSO2_SERVER_HOME}/repository/components/lib/
+COPY ./dropins ${WSO2_SERVER_HOME}/repository/components/dropins/
+COPY ./lib ${WSO2_SERVER_HOME}/repository/components/lib/
 # copy customized webapps to the identity server home
-COPY webapps ${WSO2_SERVER_HOME}/repository/deployment/server/webapps/
+COPY ./webapps ${WSO2_SERVER_HOME}/repository/deployment/server/webapps/
