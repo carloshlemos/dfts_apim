@@ -115,3 +115,40 @@ type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
 name = "org.wso2.carbon.identity.oauth2.token.handler.clientauth.mutualtls.MutualTLSClientAuthenticator"
 order = "158"
 enable = false
+
+[event.default_listener.identity_mgt]
+priority= "50"
+enable = false
+[event.default_listener.governance_identity_mgt]
+priority= "95"
+enable = true
+[event.default_listener.governance_identity_store]
+priority= "97"
+enable = true
+
+[output_adapter.email]
+from_address= "chenriquelemos@gmail.com"
+username="chenriquelemos@gmail.com"
+password= "6D7A19CCEEE8D2E8E2AF1598BF3B1F68D90B"
+hostname= "smtp.elasticemail.com"
+port= 2525
+enable_start_tls= false
+enable_authentication= true
+
+[identity.auth_framework.endpoint]
+identity_server_service_url = "https://localhost:9444"
+
+#[identity_mgt.user_onboarding]
+#enable_email_verification = true
+#verification_email_validity = "1440"
+#lock_on_creation=true
+
+[identity_mgt] 
+email_sender= "internal"
+
+#[identity_mgt.user_onboarding]
+#ask_password_email_validity = "1440"
+#password_generator = "org.wso2.carbon.user.mgt.common.DefaultPasswordGenerator"
+
+[identity_mgt.user_onboarding]
+ask_password_from_user= true
