@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to WSO2 API Manager Docker image with latest WSO2 Updates
-FROM carloshlemos/wso2is:5.10.0.158-alpine
+FROM carloshlemos/dfts_apim_is-as-km:1.0.1
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
 
 USER root
